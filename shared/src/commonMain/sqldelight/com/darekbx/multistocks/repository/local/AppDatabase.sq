@@ -1,0 +1,33 @@
+CREATE TABLE stock_dto (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    label TEXT NOT NULL,
+    queryParam TEXT NOT NULL,
+    paramIndex INTEGER NOT NULL DEFAULT 0
+);
+
+CREATE TABLE rate_dto (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    stock_id INTEGER NOT NULL,
+    value REAL NOT NULL
+);
+
+insertStock:
+INSERT INTO stock_dto(label, queryParam, paramIndex) VALUES(?, ?, ?);
+
+insertRate:
+INSERT INTO rate_dto(stock_id, value) VALUES(?, ?);
+
+removeAllStocks:
+DELETE FROM stock_dto;
+
+removeAllRates:
+DELETE FROM rate_dto;
+
+selectAllStocks:
+SELECT stock_dto.* FROM stock_dto;
+
+selectAllRates:
+SELECT rate_dto.* FROM rate_dto WHERE rate_dto.stock_id = ?;
+
+lastInsertRowId:
+SELECT last_insert_rowid();
