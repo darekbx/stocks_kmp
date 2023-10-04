@@ -17,6 +17,12 @@ INSERT INTO stock_dto(label, queryParam, paramIndex) VALUES(?, ?, ?);
 insertRate:
 INSERT INTO rate_dto(stock_id, value) VALUES(?, ?);
 
+removeStock:
+DELETE FROM stock_dto WHERE id = ?;
+
+removeStockRates:
+DELETE FROM rate_dto WHERE stock_id = ?;
+
 removeAllStocks:
 DELETE FROM stock_dto;
 
@@ -26,8 +32,14 @@ DELETE FROM rate_dto;
 selectAllStocks:
 SELECT stock_dto.* FROM stock_dto;
 
+selectStock:
+SELECT stock_dto.* FROM stock_dto WHERE stock_dto.id = ?;
+
 selectAllRates:
 SELECT rate_dto.* FROM rate_dto WHERE rate_dto.stock_id = ?;
+
+selectLatestRate:
+SELECT rate_dto.* FROM rate_dto WHERE rate_dto.stock_id = ? ORDER BY id DESC LIMIT 1;
 
 lastInsertRowId:
 SELECT last_insert_rowid();

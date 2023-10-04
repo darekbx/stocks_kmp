@@ -1,6 +1,7 @@
 package com.darekbx.multistocks.android
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -33,15 +34,30 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    var phrases by remember { mutableStateOf(listOf("Loading")) }
-                    LaunchedEffect(true) {
-                        phrases = try {
-                            listOf(repository.test())
-                        } catch (e: Exception) {
-                            listOf(e.localizedMessage ?: "error")
+                    var action by remember { mutableStateOf(false) }
+                    LaunchedEffect(action) {
+                        if (action) {
+                            /*
+                            val addId = repository.addStock("Allegro", "ale", 0)
+                            Log.v("SIGMA", "Added, id: $addId")
+                            val stocks = repository.fetchStocks()
+                            Log.v("SIGMA", "Fetched stocks, count: ${stocks.size}")
+                            val stock = stocks.first()
+                            Log.v("SIGMA", "First stock: ${stock.id}, ${stock.label}")
+
+                            Log.v("SIGMA", "Refreshing stock, id: ${stock.id}")
+                            repository.refeshStockRates(stock.id)
+
+                            val rates = repository.fetchStockRates(stock.id)
+                            Log.v("SIGMA", "Stock rates: ${rates.joinToString(", ") { "${it.value}" }}")
+                            */
+                            action = false
                         }
                     }
-                    GreetingView(phrases)
+
+                    Button(onClick = { action = true}) {
+                        Text(text = "Add")
+                    }
                 }
             }
         }

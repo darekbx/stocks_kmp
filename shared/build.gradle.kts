@@ -89,6 +89,9 @@ android {
         minSdk = 30
     }
 }
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+}
 
 sqldelight {
     database("AppDatabase") {
